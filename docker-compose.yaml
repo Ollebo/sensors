@@ -1,0 +1,29 @@
+version: '2'
+services:
+  sensor:
+    build: movment/.
+    image: ollebo/rpi-sensor
+    volumes:
+      - ./:/code
+      - /sys:/sys
+    command: tail -f /etc/fstab
+    ports:
+      - 8088:8080
+    privileged: true
+  rabbitmq:
+    image: rabbitmq:alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=ollebo
+      - RABBITMQ_DEFAULT_PASS=olle2Pass
+  #api:
+  #  build: api/.
+  #  image: ollebo/api
+  #  volumes:
+  #    - ./:/code
+  #  command: tail -f /etc/fstab
+  #  ports:
+  #    - 8080:8080
+  #redis:
+  #  image: redis
+  #  ports:
+  #    - 6379:6379      
