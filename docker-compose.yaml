@@ -3,6 +3,14 @@ services:
   sensor:
     build: movment/.
     image: ollebo/rpi-sensor
+    environment:
+      - URL=https://iot.home.ollebo.com/data/
+      - API_KEY=1234
+      - ID=1234
+      - HOSTNAME=localhost
+      - CLIENT=docker
+      - DEVICE_ID=local
+
     volumes:
       - ./:/code
       - /sys:/sys

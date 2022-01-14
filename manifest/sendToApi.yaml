@@ -1,0 +1,57 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: send-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: send-api
+  template:
+    metadata:
+      labels:
+        app: send-api
+    spec:
+      containers:
+        - image: ollebo/rpi-sensor
+          imagePullPolicy: Always
+          name: send-api
+          env:
+            - name: URL
+              value: https://iot.home.ollebo.com/data/
+            - name: API_KEY
+              value: 1234
+            - name: ID
+              value: 1234
+            - name: HOSTNAME
+              value: localhost
+            - name: CLIENT
+              value: k8s
+            - name: DEVICE_ID
+              value: local
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          #livenessProbe:
+          # httpGet:
+          #   path: 
+          #   port: 8000
+          #   httpHeaders:
+          #   - name: X-Custom-Header
+          #     value: Awesome
+          # initialDelaySeconds: 3
+          # periodSeconds: 3
+          #readinessProbe:
+          # httpGet:
+          #   path: /healthz/index.html
+          #   port: 8000
+          #   httpHeaders:
+          #   - name: X-Custom-Header
+          #     value: Awesome
+          # initialDelaySeconds: 3
+          # periodSeconds: 3

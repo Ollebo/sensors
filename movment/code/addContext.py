@@ -22,17 +22,12 @@ def addContext():
           "from": hostname,
           "device": {
             "id": device_id,
-            "uptime": 80,
+            "uptime": 0,
             "network": {},
-            "ssid": "Skynet",
-            "rssi": -62,
-            "ip": "10.0.1.71"
+            "ssid": "none",
+            "rssi": 0,
+            "ip": "10.0.0.0"
             
           }
     }
-
-
-
-
-
     return data

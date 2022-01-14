@@ -7,5 +7,8 @@ RUN pip install pika
 RUN pip3 install requests 
 
 RUN mkdir /ollebo
-COPY code /ollebo/
+COPY code/ /ollebo/code/
 WORKDIR /ollebo/code
+
+
+CMD python3 sendToApi.py
