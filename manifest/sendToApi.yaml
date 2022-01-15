@@ -14,7 +14,7 @@ spec:
         app: send-api
     spec:
       containers:
-        - image: ollebo/rpi-sensor:amd
+        - image: ollebo/rpi-sensor
           imagePullPolicy: Always
           name: send-api
           command: ["python3","-u","sendToApi.py"]

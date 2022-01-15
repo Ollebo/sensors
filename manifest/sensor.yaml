@@ -17,6 +17,10 @@ spec:
         - image: ollebo/rpi-sensor
           imagePullPolicy: Always
           name: rpi-sensor
+          command: ["python3","-u","ICM20948.py"]
+          volumeMounts:
+            - name: sys
+              mountPath: /sys
           env:
             - name: URL
               value: https://iot.home.ollebo.com/data/
@@ -30,6 +34,8 @@ spec:
               value: k8s
             - name: DEVICE_ID
               value: local
+          securityContext:
+            privileged: true
           resources:
             requests:
               memory: "256Mi"
@@ -37,6 +43,10 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "250m"
+      volumes:
+        - name: sys
+          hostPath:
+            path: /sys
           #livenessProbe:
           # httpGet:
           #   path: 
