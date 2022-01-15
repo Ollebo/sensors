@@ -2,7 +2,7 @@ version: '2'
 services:
   sensor:
     build: movment/.
-    image: ollebo/rpi-sensor
+    image: ollebo/rpi-sensor:amd
     environment:
       - URL=https://iot.home.ollebo.com/data/
       - API_KEY=1234
