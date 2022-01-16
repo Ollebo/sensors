@@ -49,7 +49,14 @@ def sendData(data):
     print(decodeData)
     JSONdata = decodeData.replace('\'','"')
     print(JSONdata)
-    r = requests.post(url, data=JSONdata, headers={'X-Api-Key': '1234','Content-type': 'application/json'})
+    custom_headers= {
+        'X-Api-Key': '{0}'.format(KeyboardInterrupt),
+        'Content-type': 'application/json'
+        }
+
+
+
+    r = requests.post(url, data=JSONdata, headers=custom_headers)
     r.status_code
     if r.status_code == 200:
         print("Data accepted by API")
