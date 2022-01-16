@@ -50,7 +50,7 @@ def sendData(data):
     JSONdata = decodeData.replace('\'','"')
     print(JSONdata)
     custom_headers= {
-        'X-Api-Key': '{0}'.format(KeyboardInterrupt),
+        'X-Api-Key': '{0}'.format(key),
         'Content-type': 'application/json'
         }
 
