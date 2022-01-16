@@ -106,7 +106,9 @@ Verify both pods are upp and running and if they up lets deploy our sensor
 
 
 ```
-```
 kubectl apply -f manifest/sensor.yaml
 ```
-```
+
+
+### Setup dashbourds 
+To come
