@@ -1,0 +1,10 @@
+ [Unit]
+ Description=Sensors
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/bin/sensors_start.sh
+
+ [Install]
+ WantedBy=multi-user.target

@@ -2,6 +2,25 @@
 # -*- coding:utf-8 -*-
 import time
 import smbus
+import datetime
+import os
+
+
+
+#Import ollebo rabbit
+from addContext import addContext
+from saveToDisk import writeDataToFile
+
+
+sleepFoor=int(os.getenv('SLEEP', 10))
+actionfile=os.getenv('ACTIONFILE','/vstech/status/go')
+def saveData():
+    '''
+    Will return tru if the action file is present alse no data will be saved
+    '''
+    return os.path.isfile(actionfile)
+
+
 #i2c address
 ADS_I2C_ADDRESS		              = 0x48
 
@@ -102,5 +121,17 @@ if __name__ == '__main__':
         AIN1_DATA=ads1015.ADS1015_SINGLE_READ(1)
         AIN2_DATA=ads1015.ADS1015_SINGLE_READ(2)
         AIN3_DATA=ads1015.ADS1015_SINGLE_READ(3)
-        print('\nAIN0 = %d(%dmv) ,AIN1 = %d(%dmv) ,AIN2 = %d(%dmv) AIN3 = %d(%dmv)\n\r'%(AIN0_DATA,AIN0_DATA*2, AIN1_DATA,AIN1_DATA*2,AIN2_DATA,AIN2_DATA*2,AIN3_DATA,AIN3_DATA*2))
-                
+        dataToSend = addContext()
+        dataToSend["data"] = {
+          "timestamp": int(time.time()),
+          "type": "ads",
+          "mesuretime": str(datetime.datetime.now()),
+          "AIN0":AIN0_DATA,
+          "AIN1":AIN1_DATA,
+          "AIN2":AIN2_DATA,
+          "AIN3": AIN3_DATA,
+          }
+        if saveData():
+            print(dataToSend)
+            writeDataToFile(dataToSend)
+        time.sleep(sleepFoor)

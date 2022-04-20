@@ -14,17 +14,17 @@ spec:
         app: send-api
     spec:
       containers:
-        - image: ollebo/rpi-sensor
+        - image: ollebo/rpi-sensor:v0.2
           imagePullPolicy: Always
           name: send-api
           command: ["python3","-u","sendToApi.py"]
           env:
             - name: URL
-              value: https://iot.home.ollebo.com/data/
+              value: https://vstech-se.vstech.io/data/
             - name: API_KEY
-              value: "1234"
+              value: "hsydhasdhjkasdas"
             - name: ID
-              value: "1234"
+              value: "hrb"
             - name: HOSTNAME
               value: localhost
             - name: CLIENT
