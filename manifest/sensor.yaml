@@ -25,9 +25,9 @@ spec:
             - name: URL
               value: https://iot.home.ollebo.com/data/
             - name: API_KEY
-              value: 1234
+              value: "1234"
             - name: ID
-              value: 1234
+              value: "1234"
             - name: HOSTNAME
               value: localhost
             - name: CLIENT
@@ -38,10 +38,39 @@ spec:
             privileged: true
           resources:
             requests:
-              memory: "256Mi"
+              memory: "64Mi"
               cpu: "250m"
             limits:
-              memory: "256Mi"
+              memory: "64Mi"
+              cpu: "250m"
+        - image: ollebo/rpi-sensor
+          imagePullPolicy: Always
+          name: rpi-temp
+          command: ["python3","-u","LPS22HB.py"]
+          volumeMounts:
+            - name: sys
+              mountPath: /sys
+          env:
+            - name: URL
+              value: https://iot.home.ollebo.com/data/
+            - name: API_KEY
+              value: "1234"
+            - name: ID
+              value: "1234"
+            - name: HOSTNAME
+              value: localhost
+            - name: CLIENT
+              value: k8s
+            - name: DEVICE_ID
+              value: local
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "64Mi"
               cpu: "250m"
       volumes:
         - name: sys

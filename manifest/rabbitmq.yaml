@@ -29,18 +29,18 @@ spec:
             requests:
               memory: "256Mi"
               cpu: "250m"
-            limits:
-              memory: "256Mi"
-              cpu: "250m"
+            #limits:
+            #  memory: "256Mi"
+            #  cpu: "250m"
           livenessProbe:
            tcpSocket:
              port: 5672
-           initialDelaySeconds: 15
+           initialDelaySeconds: 60 
            periodSeconds: 3
           readinessProbe:
            tcpSocket:
              port: 5672
-           initialDelaySeconds: 15
+           initialDelaySeconds: 60
            periodSeconds: 3
 ---
 apiVersion: v1

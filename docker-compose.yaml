@@ -2,7 +2,7 @@ version: '2'
 services:
   sensor:
     build: movment/.
-    image: ollebo/rpi-sensor:amd
+    image: ollebo/rpi-sensor:v0.2
     environment:
       - URL=https://iot.home.ollebo.com/data/
       - API_KEY=1234
@@ -10,28 +10,86 @@ services:
       - HOSTNAME=localhost
       - CLIENT=docker
       - DEVICE_ID=local
-
+      - SLEEP=50
+      - ACTIONFILE=/vstech/status/go
     volumes:
       - ./:/code
       - /sys:/sys
-    command: tail -f /etc/fstab
-    ports:
-      - 8088:8080
+      - /opt/data:/vstech/data
+    command: python3 LPS22HB.py
     privileged: true
-  rabbitmq:
-    image: rabbitmq:alpine
+  ads1050:
+    build: movment/.
+    image: ollebo/rpi-sensor:v0.2
     environment:
-      - RABBITMQ_DEFAULT_USER=ollebo
-      - RABBITMQ_DEFAULT_PASS=olle2Pass
-  #api:
-  #  build: api/.
-  #  image: ollebo/api
-  #  volumes:
-  #    - ./:/code
-  #  command: tail -f /etc/fstab
-  #  ports:
-  #    - 8080:8080
-  #redis:
-  #  image: redis
-  #  ports:
-  #    - 6379:6379      
+      - URL=https://iot.home.ollebo.com/data/
+      - API_KEY=1234
+      - ID=1234
+      - HOSTNAME=localhost
+      - CLIENT=docker
+      - DEVICE_ID=local
+      - SLEEP=50
+      - ACTIONFILE=/vstech/status/go
+    volumes:
+      - ./:/code
+      - /sys:/sys
+      - /opt/data:/vstech/data
+    command: python3 ads1015.py
+    privileged: true
+  ICM20948:
+    build: movment/.
+    image: ollebo/rpi-sensor:v0.2
+    environment:
+      - URL=https://iot.home.ollebo.com/data/
+      - API_KEY=1234
+      - ID=1234
+      - HOSTNAME=localhost
+      - CLIENT=docker
+      - DEVICE_ID=local
+      - SLEEP=50
+      - ACTIONFILE=/vstech/status/go
+    volumes:
+      - ./:/code
+      - /sys:/sys
+      - /opt/data:/vstech/data
+    command: python3 ICM20948.py
+    privileged: true
+  gps:
+    build: gps/.
+    image: ollebo/rpi-gps:v0.2
+    environment:
+      - URL=https://iot.home.ollebo.com/data/
+      - API_KEY=1234
+      - ID=1234
+      - HOSTNAME=localhost
+      - CLIENT=docker
+      - DEVICE_ID=local
+      - SLEEP=50
+      - ACTIONFILE=/vstech/status/go
+    volumes:
+      - ./:/code
+      - /opt/data:/vstech/data
+    #command: tail -f /etc/fstab
+    network_mode: host
+  camera:
+    build: camera/.
+    image: ollebo/rpi-camera:v0.2
+    environment:
+      - URL=https://iot.home.ollebo.com/data/
+      - API_KEY=1234
+      - ID=1234
+      - HOSTNAME=localhost
+      - CLIENT=docker
+      - DEVICE_ID=local
+      - LD_LIBRARY_PATH=/opt/vc/lib/
+      - SLEEP=50
+      - ACTIONFILE=/vstech/status/go
+    volumes:
+      - ./:/code
+      - /dev:/dev
+      - /sys:/sys
+      - /opt/vc:/opt/vc
+      - /opt/data:/vstech/data
+      - /opt/images:/vstech/images
+    #command: tail -f /etc/fstab
+    privileged: true

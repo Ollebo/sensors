@@ -3,12 +3,26 @@
 import time
 import smbus
 import math
+import datetime
+
+import os
+
 
 import time
 
 #Import ollebo rabbit
-from sendToRabbit import addToRabbit
 from addContext import addContext
+from saveToDisk import writeDataToFile
+
+sleepFoor=int(os.getenv('SLEEP', 10))
+
+actionfile=os.getenv('ACTIONFILE','/vstech/status/go')
+def saveData():
+    '''
+    Will return tru if the action file is present alse no data will be saved
+    '''
+    return os.path.isfile(actionfile)
+
 
 
 Gyro  = [0,0,0]
@@ -401,7 +415,9 @@ if __name__ == '__main__':
     
     dataToSend = addContext()
     dataToSend["data"] = {
-          "timestamp": time.time(),
+          "timestamp": int(time.time()),
+          "mesuretime": str(datetime.datetime.now()),
+          "type": "movement",
           "acc_x":Accel[0],
           "acc_y":Accel[1],
           "acc_z":Accel[2],
@@ -418,7 +434,9 @@ if __name__ == '__main__':
     #dataToSend["Gyroscope"] = {"Gyroscope_X":"%d","Gyroscope_Y":"%d","Gyroscope_Z":"%d"}'%(Gyro[0],Gyro[1],Gyro[2])
     #dataToSend["Magnetic"]= {"Magnetic_X":"%d","Magnetic_Y":"%d","Magnetic_Z":"%d"}'%((Mag[0]),Mag[1],Mag[2])
     #dataToSend["Roll"] = {"Roll":"%.2f","Pitch":"%.2f","Yaw":"%.2f"}'%(roll,pitch,yaw)
-    addToRabbit('mesurement',dataToSend)
+    if saveData():
+      writeDataToFile(dataToSend)
+    time.sleep(sleepFoor)
 
 
 
