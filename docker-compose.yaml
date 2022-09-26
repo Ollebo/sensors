@@ -93,3 +93,24 @@ services:
       - /opt/images:/vstech/images
     #command: tail -f /etc/fstab
     privileged: true
+  navio:
+    build: navio2/.
+    image: ollebo/navio:v0.1
+    environment:
+      - URL=https://iot.home.ollebo.com/data/
+      - API_KEY=1234
+      - ID=1234
+      - HOSTNAME=localhost
+      - CLIENT=docker
+      - DEVICE_ID=local
+      - LD_LIBRARY_PATH=/opt/vc/lib/
+      - SLEEP=50
+      - ACTIONFILE=/ollebo/status/go
+    volumes:
+      - ./navio2:/code
+      - /dev:/dev
+      - /sys:/sys
+      - /opt/data:/ollebo/data
+      - /opt/images:/ollebo/images
+    #command: tail -f /etc/fstab
+    privileged: true

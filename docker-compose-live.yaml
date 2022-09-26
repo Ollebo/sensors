@@ -1,56 +1,5 @@
 version: '2'
 services:
-  sensor:
-    image: ollebo/rpi-sensor:v0.2
-    environment:
-      - URL=https://iot.home.ollebo.com/data/
-      - API_KEY=1234
-      - ID=1234
-      - HOSTNAME=localhost
-      - CLIENT=docker
-      - DEVICE_ID=local
-      - SLEEP=50
-      - ACTIONFILE=/vstech/status/go
-    volumes:
-      - ./:/code
-      - /sys:/sys
-      - /opt/data:/vstech/data
-    command: python3 LPS22HB.py
-    privileged: true
-  ads1050:
-    image: ollebo/rpi-sensor:v0.2
-    environment:
-      - URL=https://iot.home.ollebo.com/data/
-      - API_KEY=1234
-      - ID=1234
-      - HOSTNAME=localhost
-      - CLIENT=docker
-      - DEVICE_ID=local
-      - SLEEP=50
-      - ACTIONFILE=/vstech/status/go
-    volumes:
-      - ./:/code
-      - /sys:/sys
-      - /opt/data:/vstech/data
-    command: python3 ads1015.py
-    privileged: true
-  ICM20948:
-    image: ollebo/rpi-sensor:v0.2
-    environment:
-      - URL=https://iot.home.ollebo.com/data/
-      - API_KEY=1234
-      - ID=1234
-      - HOSTNAME=localhost
-      - CLIENT=docker
-      - DEVICE_ID=local
-      - SLEEP=50
-      - ACTIONFILE=/vstech/status/go
-    volumes:
-      - ./:/code
-      - /sys:/sys
-      - /opt/data:/vstech/data
-    command: python3 ICM20948.py
-    privileged: true
   gps:
     image: ollebo/rpi-gps:v0.2
     environment:
