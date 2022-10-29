@@ -83,14 +83,14 @@ services:
       - DEVICE_ID=local
       - LD_LIBRARY_PATH=/opt/vc/lib/
       - SLEEP=50
-      - ACTIONFILE=/vstech/status/go
+      - ACTIONFILE=/ollebo/data/status/go
     volumes:
       - ./:/code
       - /dev:/dev
       - /sys:/sys
       - /opt/vc:/opt/vc
-      - /opt/data:/vstech/data
-      - /opt/images:/vstech/images
+      - /opt/data:/ollebo/data
+      - /opt/images:/ollebo/images
     #command: tail -f /etc/fstab
     privileged: true
   navio:

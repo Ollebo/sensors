@@ -2,7 +2,7 @@ import uuid
 import os
 import json
 
-path=os.getenv('VSTECH_URL', '/vstech/data')
+path=os.getenv('OLLEBO_URL', '/ollebo/data')
 filestaus= path+"/status/gpsstatus"
 s = open(filestaus, "w")
 
@@ -12,7 +12,7 @@ def writeDataToFile(data):
     '''
     #Lets make a uuid
     fileUuid=str(uuid.uuid1())
-    filePath= path+""+fileUuid+".vstech.json"
+    filePath= path+""+fileUuid+".ollebo.json"
     dataToSend = json.dumps(data)
     f = open(filePath, "w")
     f.write(dataToSend)
