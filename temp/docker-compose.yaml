@@ -1,0 +1,11 @@
+version: '3'
+services:
+  temp:
+    build: .
+    image: ollebo/temp
+    privileged: true
+    volumes:
+      - ./midevices:/midevices
+      - /sys:/sys
+      - .:/code2
+    #command: python3 /code/run.py 
