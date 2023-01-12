@@ -17,6 +17,7 @@ RUN pip3 install Adafruit_Python_DHT
 # Copy files
 COPY . /code
 RUN chmod +x /code/run.sh
+WORKDIR /code
 
 
 CMD /code/run.sh 

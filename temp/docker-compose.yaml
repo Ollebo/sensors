@@ -2,10 +2,12 @@ version: '3'
 services:
   temp:
     build: .
-    image: ollebo/temp
+    image: ollebo/temp:test
     privileged: true
     volumes:
       - ./midevices:/midevices
       - /sys:/sys
-      - .:/code2
+      - .:/code
+    ports:
+      - 8080:8080
     #command: python3 /code/run.py 
